@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./logo.png">
+  <title>YJ Publicidad</title>
+  <link rel="stylesheet" href="./styles.css" />
+  
+</head>
+
+<body>
+
+  <!-- HEADER: Logo izquierda / menú derecha -->
+  <header class="header">
+
+    <!-- ✅ BRAND HOME: logo circular + texto (todo clickeable a INICIO) -->
+    <div class="brand">
+      <a href="#" class="brand-home" data-page="inicio" aria-label="Ir a inicio">
+        <span class="logo-wrap">
+          <img src="./logo.png" alt="YJ Publicidad">
+        </span>
+
+        <!-- ✅ Badge animado (base + capas) -->
+        <span class="brand-badge badge-anim" aria-hidden="true">
+          <!-- base: define tamaño -->
+          <img class="badge-frame f0" src="./publicidad-integral.png" alt="">
+
+          <!-- capas: animación -->
+          <img class="badge-frame f1" src="./publicidad-integral1.png" alt="">
+          <img class="badge-frame f2" src="./publicidad-integral2.png" alt="">
+          <img class="badge-frame f3" src="./publicidad-integral3.png" alt="">
+          <img class="badge-frame f4" src="./publicidad-integral4.png" alt="">
+        </span>
+      </a>
+    </div>
+
+    <!-- ✅ Botón hamburguesa (solo móvil) -->
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
+      <span class="menu-icon" aria-hidden="true"></span>
+    </button>
+
+    <!-- ✅ Menú desktop -->
+    <nav class="topnav topnav--desktop" aria-label="Menú principal">
+      <a href="#" class="navlink" data-page="inicio">INICIO</a>
+      <span class="dot">•</span>
+
+      <a href="#" class="navlink" data-page="servicios">NUESTROS SERVICIOS</a>
+      <span class="dot">•</span>
+
+      <a href="#" class="navlink" data-page="portafolio">PORTAFOLIO</a>
+      <span class="dot">•</span>
+
+      <a href="#" class="navlink" data-page="quienes">QUIENES SOMOS</a>
+      <span class="dot">•</span>
+
+      <a href="#" class="navlink" data-page="clientes">NUESTROS CLIENTES</a>
+      <span class="dot">•</span>
+
+      <a href="#" class="navlink" data-page="cotizacion">CONTACTO</a>
+    </nav>
+
+    <!-- ✅ Menú móvil -->
+    <div class="mnav" id="mnav" aria-hidden="true">
+      <div class="mnav-backdrop" data-close="1"></div>
+
+      <nav class="mnav-panel" aria-label="Menú móvil">
+        <a href="#" class="mnav-link" data-page="inicio">INICIO</a>
+        <a href="#" class="mnav-link" data-page="servicios">NUESTROS SERVICIOS</a>
+        <a href="#" class="mnav-link" data-page="portafolio">PORTAFOLIO</a>
+        <a href="#" class="mnav-link" data-page="quienes">QUIENES SOMOS</a>
+        <a href="#" class="mnav-link" data-page="clientes">NUESTROS CLIENTES</a>
+        <a href="#" class="mnav-link" data-page="cotizacion">CONTACTO</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- APP -->
+  <div id="app">
+
+    <!-- INICIO -->
+    <main id="page-inicio" class="page">
+      <section class="hero">
+        <div class="hero-inner page-content">
+          <h1>YJ Publicidad</h1>
+          <p>Transformamos ideas en imágenes</p>
+          <button class="hero-cta" id="btnIrCotizacion" type="button">Pedir cotización</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- SERVICIOS -->
+    <main id="page-servicios" class="page">
+      <section class="simple-page">
+        <div class="simple-inner page-content">
+          <h2>Nuestros Servicios</h2>
+          <p>Contenido en construcción.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- PORTAFOLIO -->
+    <main id="page-portafolio" class="page">
+      <section class="simple-page">
+        <div class="simple-inner page-content">
+          <h2>Portafolio</h2>
+          <p>Contenido en construcción.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- QUIENES SOMOS -->
+    <main id="page-quienes" class="page">
+      <section class="simple-page">
+        <div class="simple-inner page-content">
+          <h2>Quienes Somos</h2>
+          <p>Contenido en construcción.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- CLIENTES -->
+    <main id="page-clientes" class="page">
+      <section class="simple-page">
+        <div class="simple-inner page-content">
+          <h2>Nuestros Clientes</h2>
+          <p>Contenido en construcción.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- CONTACTO -->
+    <main id="page-cotizacion" class="page">
+      <section class="cotizacion-page">
+        <div class="cotizacion-inner page-content">
+          <h2>PIDE TU COTIZACIÓN</h2>
+          <p class="sub">Escríbenos y un ejecutivo se estará comunicando a la brevedad posible.</p>
+
+          <div class="form-row">
+            <input id="nombre" type="text" placeholder="Nombre">
+            <input id="email" type="email" placeholder="Email">
+            <input id="telefonos" type="text" placeholder="Teléfonos">
+          </div>
+
+          <textarea id="mensaje" placeholder="Escribe tu mensaje aquí..." rows="7"></textarea>
+
+          <div class="actions">
+            <button type="button" id="sendGmail" class="btn gmail">Enviar por Gmail</button>
+            <button type="button" id="sendOutlook" class="btn outlook">Enviar por Outlook</button>
+            <button type="button" id="copyEmail" class="btn copy">Copiar correo</button>
+          </div>
+
+          <div class="back-row">
+            <p class="mini">Destino: <strong>arte1@yjpublicidad.pe</strong></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <footer class="footer" id="footer">
+    <p>© 2026 YJ Publicidad</p>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
