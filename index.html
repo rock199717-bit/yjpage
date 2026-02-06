@@ -6,7 +6,6 @@
   <link rel="icon" type="image/png" href="./logo.png">
   <title>YJ Publicidad</title>
   <link rel="stylesheet" href="./styles.css" />
-  
 </head>
 
 <body>
@@ -25,7 +24,6 @@
         <span class="brand-badge badge-anim" aria-hidden="true">
           <!-- base: define tamaño -->
           <img class="badge-frame f0" src="./publicidad-integral.png" alt="">
-
           <!-- capas: animación -->
           <img class="badge-frame f1" src="./publicidad-integral1.png" alt="">
           <img class="badge-frame f2" src="./publicidad-integral2.png" alt="">
@@ -80,12 +78,24 @@
 
     <!-- INICIO -->
     <main id="page-inicio" class="page">
-      <section class="hero">
+      <!-- ✅ HERO con video + overlay -->
+      <section class="hero hero--video">
+
+        <!-- Video de fondo -->
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+          <source src="./intrologo.mp4" type="video/mp4">
+        </video>
+
+        <!-- Overlay negro transparente SOLO sobre el video -->
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+        <!-- Contenido encima -->
         <div class="hero-inner page-content">
           <h1>YJ Publicidad</h1>
           <p>Transformamos ideas en imágenes</p>
           <button class="hero-cta" id="btnIrCotizacion" type="button">Pedir cotización</button>
         </div>
+
       </section>
     </main>
 
@@ -159,10 +169,7 @@
 
   </div>
 
-  <footer class="footer" id="footer">
-    <p>© 2026 YJ Publicidad</p>
-  </footer>
-
+  
   <script src="./script.js"></script>
 </body>
 </html>

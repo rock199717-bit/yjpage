@@ -1080,3 +1080,61 @@ body{
   .brand-badge.badge-anim .badge-frame.f4{ animation: badgeF4 16s infinite !important; }
 }
 
+/* =========================
+   HERO VIDEO FIX (PEGAR AL FINAL)
+========================= */
+.hero.hero--video{
+  position: relative;
+  min-height: calc(100vh - 60px); /* ocupa pantalla menos header */
+  overflow: hidden;
+  background: #000; /* fallback si el video falla */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* video de fondo */
+.hero.hero--video .hero-video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* llena siempre */
+  object-position: center;
+  z-index: 0;
+  display: block;
+}
+
+/* overlay negro solo encima del video */
+.hero.hero--video .hero-overlay{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45); /* ajusta 0.35 - 0.60 */
+  z-index: 1;
+}
+
+/* contenido encima */
+.hero.hero--video .hero-inner{
+  position: relative;
+  z-index: 2;
+}
+
+/* por si algún blur/filters heredados lo dañan */
+.hero.hero--video,
+.hero.hero--video *{
+  filter: none;
+}
+
+
+.hero-video{
+  animation: videoFade 800ms ease forwards;
+}
+
+@keyframes videoFade{
+  from{ opacity:0; }
+  to{ opacity:1; }
+}
+html, body{
+  height: 100%;
+  overflow: hidden !important;
+}
