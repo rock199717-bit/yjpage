@@ -29,37 +29,29 @@ document.addEventListener("DOMContentLoaded", () => {
       isOpen ? closeMenu() : openMenu();
     });
 
-    // click fuera (backdrop)
     mnav.addEventListener("click", (e) => {
-      const t = e.target;
-      if (t && t.getAttribute && t.getAttribute("data-close") === "1") closeMenu();
+      if (e.target?.getAttribute("data-close") === "1") closeMenu();
     });
 
-    // ESC
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeMenu();
     });
 
-    // si vuelves a desktop, cerrar
     window.addEventListener("resize", () => {
       if (window.innerWidth > 768) closeMenu();
     });
   }
 
   // =========================
-  // Navegación + Netflix Slide
+  // Navegación tipo Netflix
   // =========================
   let isTransitioning = false;
-
-  // Orden del menú (para saber si vas hacia adelante o atrás)
   const PAGE_ORDER = ["inicio", "servicios", "portafolio", "quienes", "clientes", "cotizacion"];
 
   function setActiveNav(pageName) {
-    // Desktop
     document.querySelectorAll(".navlink").forEach(a => a.classList.remove("is-active"));
     document.querySelector(`.navlink[data-page="${pageName}"]`)?.classList.add("is-active");
 
-    // Móvil (panel)
     document.querySelectorAll(".mnav-link").forEach(a => a.classList.remove("is-active"));
     document.querySelector(`.mnav-link[data-page="${pageName}"]`)?.classList.add("is-active");
   }
@@ -70,14 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getCurrentName() {
     const current = document.querySelector(".page.is-active");
-    if (!current) return "inicio";
-    const id = current.id || "";
-    return id.replace("page-", "") || "inicio";
+    return current?.id.replace("page-", "") || "inicio";
   }
 
   function cleanupAnimClasses(el) {
-    if (!el) return;
-    el.classList.remove(
+    el?.classList.remove(
       "enter-from-right", "enter-from-left",
       "leave-to-left", "leave-to-right"
     );
@@ -90,19 +79,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const next = getPage(pageName);
     if (!next || next === current) return;
 
-    const currentName = getCurrentName();
-    const fromIndex = PAGE_ORDER.indexOf(currentName);
+    const fromIndex = PAGE_ORDER.indexOf(getCurrentName());
     const toIndex = PAGE_ORDER.indexOf(pageName);
-
-    // Dirección tipo Netflix
     const forward = (toIndex === -1 || fromIndex === -1) ? true : (toIndex > fromIndex);
 
     const enterClass = forward ? "enter-from-right" : "enter-from-left";
     const leaveClass = forward ? "leave-to-left" : "leave-to-right";
 
     setActiveNav(pageName);
-
-    // ✅ si estás en móvil, cerrar menú al navegar
     closeMenu();
 
     if (immediate) {
@@ -115,69 +99,87 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     isTransitioning = true;
-
-    // Limpieza previa
     cleanupAnimClasses(next);
 
-    // 1) Preparar next con “estado de entrada”
-    next.classList.add("is-active");
-    next.classList.add(enterClass);
-
-    // Forzar reflow
+    next.classList.add("is-active", enterClass);
     void next.offsetWidth;
 
-    // 2) Animar hacia el centro y sacar current
     requestAnimationFrame(() => {
       next.classList.remove(enterClass);
-
       if (current) {
         cleanupAnimClasses(current);
         current.classList.add(leaveClass);
       }
 
-      const DURATION = 700; // un poco mayor a 650ms
       setTimeout(() => {
-        if (current) {
-          current.classList.remove("is-active");
-          cleanupAnimClasses(current);
-        }
+        current?.classList.remove("is-active");
+        cleanupAnimClasses(current);
         cleanupAnimClasses(next);
         isTransitioning = false;
-
-        // ✅ como el scroll es dentro de .page, lo reiniciamos aquí:
         next.scrollTo({ top: 0, behavior: "auto" });
-      }, DURATION);
+      }, 700);
     });
   }
 
   // =========================
+  // Contacto: ventana interna (Contactos <-> Cotización)
+  // =========================
+  const contactWindow = document.getElementById("contactWindow");
+  const btnPideCotizacion = document.getElementById("btnPideCotizacion");
+  const btnVolverContactos = document.getElementById("btnVolverContactos");
+
+  function openContactoPanel(panel = "contactos") {
+    if (!contactWindow) return;
+    if (panel === "cotizacion") contactWindow.classList.add("is-quote");
+    else contactWindow.classList.remove("is-quote");
+
+    // opcional: reset scroll interno
+    const views = contactWindow.querySelectorAll(".contactView");
+    const target = panel === "cotizacion" ? views[1] : views[0];
+    target?.scrollTo({ top: 0, behavior: "auto" });
+  }
+
+  btnPideCotizacion?.addEventListener("click", () => openContactoPanel("cotizacion"));
+  btnVolverContactos?.addEventListener("click", () => openContactoPanel("contactos"));
+
+  // =========================
   // Clicks del menú (Desktop)
   // =========================
-  document.querySelectorAll(".navlink[data-page]").forEach(link => {
+  document.querySelectorAll(".navlink[data-page]").forEach(link =>
     link.addEventListener("click", e => {
       e.preventDefault();
       showPage(link.dataset.page);
-    });
-  });
+
+      // si entras a CONTACTO desde el menú, muestra "contactos"
+      if (link.dataset.page === "cotizacion") openContactoPanel("contactos");
+    })
+  );
 
   // =========================
   // Clicks del menú (Móvil)
   // =========================
-  document.querySelectorAll(".mnav-link[data-page]").forEach(link => {
+  document.querySelectorAll(".mnav-link[data-page]").forEach(link =>
     link.addEventListener("click", e => {
       e.preventDefault();
       showPage(link.dataset.page);
-    });
-  });
 
-  // ✅ BRAND HOME (logo + publicidad integral) -> INICIO
-  document.querySelector(".brand-home[data-page]")?.addEventListener("click", (e) => {
+      // si entras a CONTACTO desde el menú, muestra "contactos"
+      if (link.dataset.page === "cotizacion") openContactoPanel("contactos");
+    })
+  );
+
+  // ✅ BRAND HOME -> INICIO
+  document.querySelector(".brand-home[data-page]")?.addEventListener("click", e => {
     e.preventDefault();
     showPage("inicio");
   });
 
-  // Botón directo a cotización
-  document.getElementById("btnIrCotizacion")?.addEventListener("click", () => showPage("cotizacion"));
+  // ✅ Botón de INICIO: ir a CONTACTO y abrir directo COTIZACIÓN
+  document.getElementById("btnIrCotizacion")?.addEventListener("click", () => {
+    showPage("cotizacion");
+    // Espera el cambio de página para luego activar el panel
+    setTimeout(() => openContactoPanel("cotizacion"), 750);
+  });
 
   // Inicial
   showPage("inicio", { immediate: true });
@@ -185,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // =========================
   // Gmail / Outlook / Copiar
   // =========================
-  const DESTINO = "arte1@yjpublicidad.pe";
+  const DESTINO = "yfranco@yjpublicidad.pe";
   const $ = (id) => document.getElementById(id);
 
   function getData() {
@@ -198,9 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function buildSubject(data) {
-    const base = "Cotización - YJ Publicidad";
-    const from = data.nombre ? ` | ${data.nombre}` : "";
-    return base + from;
+    return "Cotización - YJ Publicidad" + (data.nombre ? ` | ${data.nombre}` : "");
   }
 
   function buildBody(data) {
@@ -221,33 +221,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function openGmail() {
-    const data = getData();
-    const subject = encodeURIComponent(buildSubject(data));
-    const body = encodeURIComponent(buildBody(data));
-    const to = encodeURIComponent(DESTINO);
-
-    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
-    window.open(url, "_blank", "noopener");
+    const d = getData();
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(DESTINO)}&su=${encodeURIComponent(buildSubject(d))}&body=${encodeURIComponent(buildBody(d))}`,
+      "_blank",
+      "noopener"
+    );
   }
 
   function openOutlook() {
-    const data = getData();
-    const subject = encodeURIComponent(buildSubject(data));
-    const body = encodeURIComponent(buildBody(data));
-    const to = encodeURIComponent(DESTINO);
-
-    const url = `https://outlook.office.com/mail/deeplink/compose?to=${to}&subject=${subject}&body=${body}`;
-    window.open(url, "_blank", "noopener");
+    const d = getData();
+    window.open(
+      `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(DESTINO)}&subject=${encodeURIComponent(buildSubject(d))}&body=${encodeURIComponent(buildBody(d))}`,
+      "_blank",
+      "noopener"
+    );
   }
 
   async function copyEmail() {
     try {
       await navigator.clipboard.writeText(DESTINO);
-      const btn = $("copyEmail");
-      if (btn) {
-        const old = btn.textContent;
-        btn.textContent = "¡Copiado!";
-        setTimeout(() => (btn.textContent = old), 1200);
+
+      const msg = $("copiedText");
+      if (msg) {
+        msg.classList.add("show");
+        clearTimeout(msg._t);
+        msg._t = setTimeout(() => msg.classList.remove("show"), 1400);
       }
     } catch {
       alert("No se pudo copiar automáticamente. Copia manualmente: " + DESTINO);
@@ -257,4 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $("sendGmail")?.addEventListener("click", openGmail);
   $("sendOutlook")?.addEventListener("click", openOutlook);
   $("copyEmail")?.addEventListener("click", copyEmail);
+
 });
+const DESTINO = "yfranco@yjpublicidad.pe";
+

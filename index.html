@@ -6,6 +6,9 @@
   <link rel="icon" type="image/png" href="./logo.png">
   <title>YJ Publicidad</title>
   <link rel="stylesheet" href="./styles.css" />
+
+  <!-- ✅ Iconos web (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -22,9 +25,7 @@
 
         <!-- ✅ Badge animado (base + capas) -->
         <span class="brand-badge badge-anim" aria-hidden="true">
-          <!-- base: define tamaño -->
           <img class="badge-frame f0" src="./publicidad-integral.png" alt="">
-          <!-- capas: animación -->
           <img class="badge-frame f1" src="./publicidad-integral1.png" alt="">
           <img class="badge-frame f2" src="./publicidad-integral2.png" alt="">
           <img class="badge-frame f3" src="./publicidad-integral3.png" alt="">
@@ -78,24 +79,22 @@
 
     <!-- INICIO -->
     <main id="page-inicio" class="page">
-      <!-- ✅ HERO con video + overlay -->
       <section class="hero hero--video">
-
-        <!-- Video de fondo -->
         <video class="hero-video" autoplay muted loop playsinline preload="metadata">
           <source src="./intrologo.mp4" type="video/mp4">
         </video>
 
-        <!-- Overlay negro transparente SOLO sobre el video -->
         <div class="hero-overlay" aria-hidden="true"></div>
 
-        <!-- Contenido encima -->
         <div class="hero-inner page-content">
           <h1>YJ Publicidad</h1>
           <p>Transformamos ideas en imágenes</p>
-          <button class="hero-cta" id="btnIrCotizacion" type="button">Pedir cotización</button>
-        </div>
 
+          <button class="hero-cta" id="btnIrCotizacion" type="button">
+            <i class="fa-solid fa-file-signature" aria-hidden="true"></i>
+            <span>Pedir cotización</span>
+          </button>
+        </div>
       </section>
     </main>
 
@@ -143,33 +142,97 @@
     <main id="page-cotizacion" class="page">
       <section class="cotizacion-page">
         <div class="cotizacion-inner page-content">
-          <h2>PIDE TU COTIZACIÓN</h2>
-          <p class="sub">Escríbenos y un ejecutivo se estará comunicando a la brevedad posible.</p>
 
-          <div class="form-row">
-            <input id="nombre" type="text" placeholder="Nombre">
-            <input id="email" type="email" placeholder="Email">
-            <input id="telefonos" type="text" placeholder="Teléfonos">
+          <!-- ✅ Ventana interna con 2 vistas (Netflix horizontal) -->
+          <div class="contactWindow" id="contactWindow">
+            <div class="contactSlider" id="contactSlider">
+
+              <!-- =======================
+                   VISTA 1: CONTACTOS
+              ======================== -->
+              <section class="contactView">
+                <h2>CONTACTO</h2>
+                <p class="sub">Escríbenos o revisa nuestros datos de contacto.</p>
+
+                <div class="contactCards">
+                  <div class="contactItem">
+                    <strong><i class="fa-solid fa-phone" aria-hidden="true"></i> Teléfono</strong>
+                    <div>+51 999 999 999</div>
+                  </div>
+
+                  <div class="contactItem">
+                    <strong><i class="fa-solid fa-envelope" aria-hidden="true"></i> Correo</strong>
+                    <div>arte1@yjpublicidad.pe</div>
+                  </div>
+
+                  <div class="contactItem">
+                    <strong><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Dirección</strong>
+                    <div>Tu dirección aquí</div>
+                  </div>
+                </div>
+
+                <div class="contactActions">
+                  <button class="btn" id="btnPideCotizacion" type="button">
+                    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    <span>Pide tu cotización</span>
+                  </button>
+                </div>
+              </section>
+
+              <!-- =======================
+                   VISTA 2: FORM COTIZACIÓN
+              ======================== -->
+              <section class="contactView">
+                <h2>PIDE TU COTIZACIÓN</h2>
+                <p class="sub">Un ejecutivo se estará comunicando a la brevedad posible.</p>
+
+                <div class="form-row">
+                  <input id="nombre" type="text" placeholder="Nombre">
+                  <input id="email" type="email" placeholder="Email">
+                  <input id="telefonos" type="text" placeholder="Teléfonos">
+                </div>
+
+                <textarea id="mensaje" placeholder="Escribe tu mensaje aquí..." rows="7"></textarea>
+
+                <div class="actions">
+                  <button type="button" id="sendGmail" class="btn gmail">
+                    <i class="fa-brands fa-google" aria-hidden="true"></i>
+                    <span>Enviar por Gmail</span>
+                  </button>
+
+                  <button type="button" id="sendOutlook" class="btn outlook">
+                    <i class="fa-brands fa-microsoft" aria-hidden="true"></i>
+                    <span>Enviar por Outlook</span>
+                  </button>
+
+                  <button type="button" id="copyEmail" class="btn copy">
+                    <i class="fa-regular fa-copy" aria-hidden="true"></i>
+                    <span>Copiar correo</span>
+                  </button>
+
+                  <!-- ✅ VOLVER ABAJO (junto a botones) -->
+                  <button type="button" class="btn back" id="btnVolverContactos">
+                    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                    <span>Volver</span>
+                  </button>
+                </div>
+
+                <div class="back-row">
+                  <p id="copiedText" class="copied-text">Texto copiado</p>
+                </div>
+                <p class="send-to">Se enviará al correo: <strong>yfranco@yjpublicidad.pe</strong></p>
+              </section>
+
+            </div>
           </div>
+          <!-- ✅ fin ventana -->
 
-          <textarea id="mensaje" placeholder="Escribe tu mensaje aquí..." rows="7"></textarea>
-
-          <div class="actions">
-            <button type="button" id="sendGmail" class="btn gmail">Enviar por Gmail</button>
-            <button type="button" id="sendOutlook" class="btn outlook">Enviar por Outlook</button>
-            <button type="button" id="copyEmail" class="btn copy">Copiar correo</button>
-          </div>
-
-          <div class="back-row">
-            <p class="mini">Destino: <strong>arte1@yjpublicidad.pe</strong></p>
-          </div>
         </div>
       </section>
     </main>
 
   </div>
 
-  
   <script src="./script.js"></script>
 </body>
 </html>

@@ -342,17 +342,17 @@ body{
 .btn:active{ transform: translateY(0); }
 
 .btn.gmail{
-  background: rgba(255,255,255,.92);
-  color: #0b1222;
-  border-color: rgba(255,255,255,.35);
+  background: rgb(236, 47, 47);
+  color: #ffffff;
+  border-color: rgba(236, 47, 47);
 }
 .btn.outlook{
-  background: rgba(0,168,132,.20);
-  border-color: rgba(0,168,132,.30);
+  background: rgb(26, 125, 255);
+  border-color: rgba(26, 125, 255);
 }
 .btn.copy{
-  background: rgba(232,72,46,.16);
-  border-color: rgba(232,72,46,.26);
+  background: rgba(232,72,46);
+  border-color: rgba(232,72,46);
 }
 
 .back-row{
@@ -1148,3 +1148,113 @@ html, body{
   .topnav{ gap: 10px; }
   .dot{ font-size: 10px; }
 }
+
+.copied-text {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #4caf50; /* verde feedback */
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.copied-text.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* =========================
+   CONTACTO – Netflix REAL (slide + blur) ✅ sin mover el slider
+========================= */
+
+.contactWindow{
+  position: relative;
+  width: 100%;
+  height: 580px;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+/* Slider: NO compensaciones raras */
+.contactSlider{
+  height: 100%;
+  display: flex;
+  width: 200%;
+  transform: translateX(0);
+  transition: transform 820ms cubic-bezier(.16,1,.3,1);
+  will-change: transform;
+}
+
+/* Movimiento principal */
+.contactWindow.is-quote .contactSlider{
+  transform: translateX(-50%);
+}
+
+/* Panel */
+.contactView{
+  width: 50%;
+  height: 100%;
+  padding: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  align-items: stretch;
+}
+
+/* ✅ CENTRADO del contenido (sin mover el slider) */
+.contactView > *{
+  width: min(980px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Centra solo títulos */
+.contactView > h2,
+.contactView > .sub{
+  text-align: center;
+}
+
+/* Netflix crossfade */
+.contactView{
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateX(0);
+  transition:
+    opacity 520ms ease,
+    filter 520ms ease,
+    transform 520ms ease;
+}
+
+.contactWindow:not(.is-quote) .contactView:nth-child(2){
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateX(48px);
+  pointer-events: none;
+}
+
+.contactWindow.is-quote .contactView:nth-child(1){
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateX(-48px);
+  pointer-events: none;
+}
+
+/* Cards compactas */
+.contactCards{
+  width: min(520px, 100%);
+}
+.send-to-fixed{
+  margin-top: 6px;
+  text-align: center;
+  font-size: 14px;
+  color: #ffffff !important;   /* 🔥 BLANCO PURO */
+  opacity: 1 !important;       /* 🔥 SIEMPRE VISIBLE */
+  transform: none !important;  /* 🔥 NO ANIMACIÓN */
+  pointer-events: none;
+}
+
+
