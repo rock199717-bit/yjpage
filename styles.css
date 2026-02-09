@@ -487,7 +487,7 @@ body{
 }
 
 /* =========================
-   HAMBURGUESA + MENÚ MÓVIL (desde 1151px)
+   HAMBURGUESA + MENÚ MÓVIL (desde 900px)
 ========================= */
 
 /* Botón hamburguesa */
@@ -624,8 +624,8 @@ body{
 .mnav.is-open{ pointer-events:auto; opacity:1; }
 .mnav.is-open .mnav-panel{ opacity:1; transform: translateY(0) scale(1); }
 
-/* Mostrar hamburguesa y ocultar menú desktop desde 1151px */
-@media (max-width: 1151px){
+/* Hamburguesa SOLO en tablets y móviles */
+@media (max-width: 900px){
   .topnav--desktop{ display:none; }
   .menu-btn{
     display:inline-flex;
@@ -634,20 +634,19 @@ body{
   }
 }
 
-/* FIX header 1 fila (logo izquierda, hamburger derecha) desde 1151px */
+
+/* Header estable en laptops pequeñas */
 @media (max-width: 1151px){
   .header{
-    flex-direction: row !important;
-    align-items: center !important;
+    flex-direction: row;
+    align-items: center;
   }
-  .brand{ line-height: 1; }
-  .menu-btn{
-    margin-left:auto;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+
+  .brand{
+    line-height: 1;
   }
 }
+
 
 
 /* =========================
@@ -1137,4 +1136,15 @@ body{
 html, body{
   height: 100%;
   overflow: hidden !important;
+}
+
+/* Laptops pequeñas: menú visible pero más compacto */
+@media (max-width: 1151px) and (min-width: 901px){
+  .navlink{
+    font-size: 11px;
+    letter-spacing: .3px;
+    padding: 4px 3px;
+  }
+  .topnav{ gap: 10px; }
+  .dot{ font-size: 10px; }
 }
