@@ -254,10 +254,11 @@ body{
 ========================= */
 .cotizacion-page{
   min-height:100%;
+  height:100%;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:60px 20px;
+  padding: clamp(16px, 4vw, 40px) clamp(12px, 3vw, 28px);
 
   background: var(--yj-gray-page);
   background-size: cover;
@@ -265,8 +266,13 @@ body{
 }
 
 .cotizacion-inner{
-  width:min(1100px, 100%);
+  width:min(980px, 92vw);
   text-align:center;
+  min-height:0;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 .cotizacion-inner h2{
   font-size: clamp(26px, 3vw, 44px);
@@ -331,6 +337,7 @@ body{
   cursor:pointer;
   font-weight:900;
   letter-spacing:.2px;
+  font-size:15px;
 
   background: rgba(255,255,255,.08);
   color: var(--white);
@@ -1169,9 +1176,11 @@ html, body{
 .contactWindow{
   position: relative;
   width: 100%;
-  height: 580px;
+  height: min(560px, 100%);
+  max-height: 100%;
   overflow: hidden;
   border-radius: 18px;
+  flex: 1 1 auto;
 }
 
 /* Slider: NO compensaciones raras */
@@ -1198,11 +1207,13 @@ html, body{
   display: flex;
   flex-direction: column;
   gap: 12px;
+  justify-content: space-between;
 
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 
   align-items: stretch;
+  min-height:0;
 }
 
 /* ✅ CENTRADO del contenido (sin mover el slider) */
@@ -1245,7 +1256,8 @@ html, body{
 
 /* Cards compactas */
 .contactCards{
-  width: min(520px, 100%);
+  width:100%;
+  max-width:520px;
 }
 .send-to-fixed{
   margin-top: 6px;
@@ -1255,6 +1267,665 @@ html, body{
   opacity: 1 !important;       /* 🔥 SIEMPRE VISIBLE */
   transform: none !important;  /* 🔥 NO ANIMACIÓN */
   pointer-events: none;
+}
+
+/* =========================
+   CONTACTO PRO (tarjeta + mapa + whatsapp)
+========================= */
+.contactWindow{
+  background: linear-gradient(145deg, rgba(79,75,73,.78), rgba(34,31,30,.94));
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 18px 50px rgba(0,0,0,.35);
+  backdrop-filter: blur(8px);
+}
+.contactGrid{
+  display:grid;
+  grid-template-columns: 1fr 1.25fr; /* mapa un poco más ancho */
+  gap:16px;
+  align-items: stretch;
+  margin-top:12px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.contactCard{
+  background: rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  padding:18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.28);
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.contactCard--info{ display:flex; flex-direction:column; gap:12px; justify-content: space-between; align-self:stretch; }
+.contactCard--info{
+  padding:14px;
+  height:auto;
+  align-self:start;
+}
+.contactCard--info{
+  max-height: 2150px;
+}
+.contactCard--info .contactActions{
+  margin-top:2px;
+}
+.contactCard--info .contactCards{
+  gap:8px;
+}
+.contactCard--info .contactItem{
+  padding:9px;
+}
+.contactCard--info .contactActions{
+  margin-top:4px;
+}
+.contactCards{ width:100% !important; display:flex; flex-direction:column; gap:12px; align-items:stretch; }
+.contactItem{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:12px;
+  border-radius:12px;
+  background: rgba(0,0,0,.24);
+  border:1px solid rgba(255,255,255,.05);
+}
+.contactItem strong{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  color: var(--white);
+  font-size:13px;
+  flex:0 0 auto;
+}
+.contactItem span,
+.contactItem > div{
+  color: var(--muted);
+  letter-spacing:.2px;
+  font-size:13px;
+  flex:1 1 auto;
+  min-width:0;
+  word-break: break-word;
+}
+.contactActions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.contactActions .btn{
+  flex:1 1 200px;           /* mismo ancho relativo */
+  min-width:170px;
+  text-align:center;
+}
+.btn.whatsapp{
+  background:#25D366;
+  border-color:#25D366;
+  color:#062b14;
+}
+.btn.whatsapp:hover{ filter: brightness(1.05); }
+.contactCard--map{
+  background: rgba(0,0,0,.30);
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+.miniMap{
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+  flex:1 1 auto;
+  min-height:0;
+  border:1px solid rgba(255,255,255,.08);
+}
+.miniMap iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+  filter: saturate(.96) brightness(.96);
+}
+.map-caption{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  color: var(--muted);
+}
+.map-caption strong{
+  color:#fff;
+  letter-spacing:.2px;
+}
+.map-caption span{
+  color: var(--muted);
+  font-weight:700;
+}
+.contactEyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  background: rgba(212,224,74,.12);
+  border:1px solid rgba(212,224,74,.32);
+  color:#e6f28c;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  font-size:11px;
+  font-weight:900;
+}
+@media (max-width:900px){
+  .contactGrid{ grid-template-columns:1fr; }
+  .contactWindow{ height:auto; min-height:0; }
+  .contactCard{ height:auto; }
+}
+
+@media (max-width:1100px){
+  .contactCards{ max-width: none; }
+  .contactItem{ width:100%; }
+}
+
+/* Tablet vertical (~853px ancho): más compacto y mapa más alto */
+@media (max-width: 900px) and (min-width: 700px){
+  .cotizacion-inner{ width:min(760px, 100%); }
+  .contactView{ justify-content: flex-start; }
+  .contactGrid{
+    grid-template-columns:1fr;
+    grid-template-rows:auto 1fr;
+    gap:12px;
+    flex:1 1 auto;
+  }
+  .contactCard--map{ min-height:300px; }
+  .miniMap{
+    flex:1 1 auto;
+    min-height:0;
+  }
+}
+
+/* 853x1280 (tablet alto): texto de contacto un poco más grande */
+@media (max-width: 900px) and (min-width: 820px) and (min-height: 1200px){
+  #page-cotizacion .contactItem > div,
+  #page-cotizacion .contactItem span{
+    font-size:14px;
+  }
+}
+
+/* Full-width items in contact list */
+.contactItem{ width:100%; }
+
+/* Small phones: keep logo + badge visible and aligned */
+@media (max-width: 360px){
+  .brand-badge{ display:flex !important; height:26px; max-width:120px; }
+  .brand-badge img{ height:26px; width:auto; object-fit:contain; }
+  .logo-wrap{ width:28px !important; height:28px !important; flex-basis:28px !important; }
+  .brand-home{ gap:6px; }
+}
+
+/* Header alignment fix (Surface Pro 7 and similar) */
+.header .brand,
+.header .brand-home{
+  align-items:center;
+  line-height:1;
+}
+.header .logo-wrap,
+.header .brand-badge{
+  align-self:center;
+}
+
+/* Escala proporcional general (evita contenido apretado) */
+.cotizacion-page{
+  --cot-pad: clamp(12px, 2vh, 18px);
+  --cot-gap: clamp(8px, 1.6vh, 14px);
+  --cot-text: clamp(12px, 1.6vh, 14px);
+  --cot-title: clamp(22px, 3vh, 32px);
+}
+#page-cotizacion .contactView{
+  padding: var(--cot-pad);
+  gap: var(--cot-gap);
+}
+#page-cotizacion .contactCard{
+  padding: var(--cot-pad);
+}
+#page-cotizacion .contactItem{
+  padding: calc(var(--cot-gap) * 0.7);
+}
+#page-cotizacion .contactItem strong,
+#page-cotizacion .contactItem span{
+  font-size: var(--cot-text);
+}
+#page-cotizacion h2{
+  font-size: var(--cot-title);
+}
+#page-cotizacion .sub{
+  font-size: clamp(12px, 1.5vh, 14px);
+}
+#page-cotizacion .contactActions .btn{
+  padding: clamp(9px, 1.4vh, 12px) clamp(12px, 2vh, 16px);
+}
+
+/* Ajuste proporcional para pantallas bajas (ej. 1024x600) */
+@media (max-width: 1100px) and (max-height: 640px){
+  #page-cotizacion{ overflow: hidden; }
+
+  .cotizacion-page{
+    padding: clamp(8px, 1.6vh, 14px);
+    height:100%;
+  }
+  .cotizacion-inner{
+    height:100%;
+  }
+  .contactWindow{
+    height: min(520px, 100%);
+    max-height:100%;
+  }
+  .contactView{
+    padding: clamp(8px, 1.4vh, 12px);
+    gap: clamp(6px, 1.2vh, 10px);
+    overflow: hidden;
+  }
+  .contactGrid{
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(6px, 1.2vh, 10px);
+    margin-top: 4px;
+  }
+  .contactCard{
+    padding: clamp(8px, 1.4vh, 12px);
+  }
+  .contactItem{
+    padding: clamp(6px, 1.1vh, 9px);
+  }
+  .contactItem strong,
+  .contactItem span{
+    font-size: clamp(11px, 1.4vh, 13px);
+    line-height:1.2;
+  }
+  .contactActions{
+    gap: clamp(6px, 1.2vh, 10px);
+  }
+  .contactActions .btn{
+    flex:1 1 180px;
+    min-width:140px;
+    padding: clamp(8px, 1.3vh, 10px) clamp(10px, 1.6vh, 12px);
+  }
+  #page-cotizacion h2{
+    font-size: clamp(18px, 2.6vh, 24px);
+  }
+  #page-cotizacion .sub{
+    font-size: clamp(11px, 1.6vh, 13px);
+    margin-bottom: 2px;
+  }
+  #page-cotizacion .form-row{
+    gap: clamp(6px, 1.2vh, 10px);
+    margin-top: clamp(6px, 1.2vh, 10px);
+  }
+  #page-cotizacion input,
+  #page-cotizacion textarea{
+    padding: clamp(8px, 1.3vh, 12px) clamp(10px, 1.6vh, 14px);
+    font-size: clamp(12px, 1.6vh, 14px);
+  }
+  #page-cotizacion textarea{
+    min-height: clamp(60px, 12vh, 110px);
+    margin-top: clamp(6px, 1.2vh, 10px);
+  }
+  #page-cotizacion .actions{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(6px, 1.2vh, 10px);
+    margin-top: clamp(6px, 1.2vh, 10px);
+  }
+  #page-cotizacion .actions .btn{
+    width:100%;
+  }
+  #page-cotizacion .back-row{
+    margin-top: clamp(4px, 0.8vh, 8px);
+  }
+  #page-cotizacion .send-to{
+    font-size: clamp(11px, 1.4vh, 12.5px);
+  }
+  .miniMap{
+    aspect-ratio: 2.2 / 1;
+  }
+}
+
+@media (max-width: 620px){
+  #page-cotizacion .actions{ grid-template-columns: 1fr; }
+}
+
+/* No scroll dentro de la página de cotización */
+#page-cotizacion{
+  overflow: hidden;
+}
+#page-cotizacion .contactView{
+  overflow: hidden;
+}
+#page-cotizacion .contactActions .btn{
+  width: auto;
+}
+
+/* =========================
+   CONTACTO: RESPONSIVE GLOBAL (lista de dispositivos)
+========================= */
+#page-cotizacion .contactCards,
+#page-cotizacion .contactItem{
+  width:100%;
+}
+#page-cotizacion .contactCards{
+  max-width:100%;
+}
+
+@media (max-width: 1200px){
+  #page-cotizacion .cotizacion-inner{ width:min(880px, 94vw); }
+}
+
+@media (max-width: 1024px){
+  #page-cotizacion .cotizacion-inner{ width:min(760px, 94vw); }
+  #page-cotizacion .contactCard--info{ align-self:stretch; }
+  #page-cotizacion .contactCard--map{ min-height: clamp(280px, 38vh, 420px); }
+}
+
+@media (max-width: 900px){
+  #page-cotizacion .cotizacion-inner{ width:min(720px, 94vw); }
+  #page-cotizacion .contactGrid{
+    grid-template-columns:1fr;
+    grid-template-rows:auto 1fr;
+  }
+  #page-cotizacion .contactCard--map{ min-height: clamp(260px, 40vh, 420px); }
+}
+
+@media (max-width: 768px){
+  #page-cotizacion .cotizacion-inner{ width:min(680px, 94vw); }
+  #page-cotizacion .contactActions .btn{
+    flex:1 1 100%;
+  }
+}
+
+@media (max-width: 430px){
+  #page-cotizacion .cotizacion-inner{ width:min(560px, 92vw); }
+  #page-cotizacion h2{ font-size: clamp(18px, 5vw, 24px); }
+  #page-cotizacion .sub{ font-size: clamp(11px, 3.2vw, 13px); }
+}
+
+/* 430x932: ordenar cotización en móvil alto */
+@media (max-width: 440px) and (min-height: 900px){
+  #page-cotizacion .contactView{ gap: 8px; }
+  #page-cotizacion .form-row{ gap: 8px; margin-top: 8px; }
+  #page-cotizacion textarea{ min-height: 90px; margin-top: 6px; }
+  #page-cotizacion .actions{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:8px;
+    margin-top: 8px;
+  }
+  #page-cotizacion .actions .btn{ width:100%; }
+  #page-cotizacion .back-row{ margin-top: 6px; }
+  #page-cotizacion .send-to{ margin-top: 8px; font-size: 13px; }
+}
+
+/* 390x844: ordenar cotización en móvil */
+@media (max-width: 400px) and (min-height: 820px){
+  #page-cotizacion .contactView{ gap: 8px; }
+  #page-cotizacion .form-row{ gap: 8px; margin-top: 8px; }
+  #page-cotizacion textarea{ min-height: 80px; margin-top: 6px; }
+  #page-cotizacion .actions{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:8px;
+    margin-top: 8px;
+  }
+  #page-cotizacion .actions .btn{ width:100%; }
+  #page-cotizacion .back-row{ margin-top: 6px; }
+  #page-cotizacion .send-to{ margin-top: 8px; font-size: 13px; }
+}
+
+/* 425x844: cotización equilibrada */
+@media (max-width: 430px) and (min-height: 820px){
+  #page-cotizacion .contactView{ gap: 8px; }
+  #page-cotizacion .form-row{ gap: 8px; margin-top: 8px; }
+  #page-cotizacion textarea{ min-height: 85px; margin-top: 6px; }
+  #page-cotizacion .actions{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:8px;
+    margin-top: 8px;
+  }
+  #page-cotizacion .actions .btn{ width:100%; }
+  #page-cotizacion .back-row{ margin-top: 6px; }
+  #page-cotizacion .send-to{ margin-top: 8px; font-size: 13px; }
+}
+
+/* 375x667: cotización menos apretada */
+@media (max-width: 390px) and (max-height: 700px){
+  #page-cotizacion .contactView{
+    gap: 12px;
+    overflow: auto;
+    padding-bottom: 20px;
+  }
+  #page-cotizacion .form-row{ gap: 12px; margin-top: 12px; }
+  #page-cotizacion textarea{ min-height: 100px; margin-top: 10px; }
+  #page-cotizacion .actions{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:12px;
+    margin-top: 12px;
+  }
+  #page-cotizacion .actions .btn{ width:100%; }
+  #page-cotizacion .back-row{ margin-top: 10px; }
+  #page-cotizacion .send-to{ margin-top: 14px; font-size: 13px; }
+}
+
+/* 412x914 (móvil alto): textos en una sola línea */
+@media (max-width: 420px) and (min-height: 860px){
+  #page-cotizacion .contactItem > div,
+  #page-cotizacion .contactItem span{
+    font-size:12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-height: 740px){
+  #page-cotizacion .cotizacion-page{ padding: clamp(8px, 1.6vh, 12px); }
+  #page-cotizacion .contactView{ gap: clamp(6px, 1.2vh, 10px); }
+  #page-cotizacion .contactItem{ padding: clamp(6px, 1.2vh, 9px); }
+  #page-cotizacion textarea{ min-height: clamp(70px, 12vh, 110px); }
+  #page-cotizacion .contactCard--map{ min-height: clamp(220px, 32vh, 340px); }
+}
+
+/* Nest Hub 1024x600 (landscape): mapa más alto y botones alineados */
+@media (max-width: 1100px) and (max-height: 620px) and (min-width: 900px){
+  #page-cotizacion .cotizacion-inner{ width:min(860px, 92vw); }
+  #page-cotizacion .contactGrid{
+    grid-template-columns: 1fr 1fr;
+    gap:12px;
+  }
+  #page-cotizacion .contactCard--info{ align-self:stretch; max-height: 220px; }
+  #page-cotizacion .contactCard--map{ min-height: clamp(300px, 46vh, 420px); }
+  #page-cotizacion .contactActions{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:8px;
+  }
+  #page-cotizacion .contactActions .btn{ width:100%; }
+  #page-cotizacion .contactItem{ padding:8px; }
+  #page-cotizacion .btn{
+    font-size:13px;
+    padding:9px 12px;
+  }
+}
+
+/* Reforzar ajustes de cotización en 412x914 (móvil alto) */
+@media (max-width: 420px) and (min-height: 860px){
+  #page-cotizacion .contactView{ gap: 8px; }
+  #page-cotizacion .form-row{ gap: 8px; margin-top: 8px; }
+  #page-cotizacion textarea{ min-height: 80px; margin-top: 6px; }
+  #page-cotizacion .actions{ margin-top: 6px; gap: 8px; }
+  #page-cotizacion .back-row{ margin-top: 4px; }
+  #page-cotizacion .send-to{ margin-top: 8px; font-size: 13px; }
+}
+
+/* 360x740: similar a 412x914 pero más compacto */
+@media (max-width: 380px) and (max-height: 760px){
+  #page-cotizacion .contactView{ gap: 6px; }
+  #page-cotizacion .form-row{ gap: 6px; margin-top: 6px; }
+  #page-cotizacion textarea{ min-height: 70px; margin-top: 6px; }
+  #page-cotizacion .actions{ margin-top: 6px; gap: 6px; }
+  #page-cotizacion .back-row{ margin-top: 4px; }
+  #page-cotizacion .send-to{ margin-top: 6px; font-size: 12px; }
+  #page-cotizacion .contactItem > div,
+  #page-cotizacion .contactItem span{
+    font-size:11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* 360x740: alinear logo + badge animado */
+@media (max-width: 380px) and (max-height: 760px){
+  .brand,
+  .brand-home{
+    align-items:center;
+    gap:6px;
+  }
+  .logo-wrap{
+    width:28px !important;
+    height:28px !important;
+    flex-basis:28px !important;
+  }
+  .brand-badge,
+  .brand-badge.badge-anim,
+  .brand-badge.badge-anim .badge-frame{
+    height:24px !important;
+  }
+}
+
+/* Galaxy Z Fold 5 y similares: mantener logo/badge visibles y alineados */
+@media (max-width: 360px){
+  .brand-home{ max-width:72vw; }
+  .brand-badge{ max-width:90px; }
+}
+
+/* 912x1368 (tablets grandes): alinear logo/badge y usar menú hamburguesa */
+@media (max-width: 1024px) and (min-height: 1200px){
+  .brand,
+  .brand-home{
+    align-items:center;
+    gap:8px;
+  }
+  .logo-wrap{
+    width:36px !important;
+    height:36px !important;
+    flex-basis:36px !important;
+  }
+  .brand-badge,
+  .brand-badge.badge-anim,
+  .brand-badge.badge-anim .badge-frame{
+    height:36px !important;
+  }
+  .topnav--desktop{ display:none; }
+  .menu-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  /* Contacto + Cotización */
+  #page-cotizacion .cotizacion-page{
+    align-items:flex-start;
+    padding-top:28px;
+  }
+  #page-cotizacion .cotizacion-inner{ width:min(900px, 92vw); }
+  #page-cotizacion .contactWindow{
+    height: min(900px, calc(100vh - 120px));
+    max-height: calc(100vh - 120px);
+  }
+  #page-cotizacion .contactView{
+    justify-content: flex-start;
+    min-height: 100%;
+  }
+  #page-cotizacion .contactView--datos{ min-height: 0; height: auto; }
+  #page-cotizacion .contactGrid{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap:16px;
+  }
+  #page-cotizacion .contactCard--info{ max-height: 260px; }
+  #page-cotizacion .contactCard--map{ min-height: clamp(360px, 42vh, 520px); }
+  #page-cotizacion textarea{ min-height: 180px; }
+  #page-cotizacion .actions{ gap: 12px; }
+}
+
+/* 540x720: mostrar botones completos en cotización */
+@media (max-width: 600px) and (max-height: 760px){
+  #page-cotizacion .contactView{ overflow: hidden; }
+  #page-cotizacion h2{ font-size: 20px; }
+  #page-cotizacion .sub{ font-size: 12px; margin-top: 6px; }
+  #page-cotizacion .form-row{ gap: 8px; margin-top: 6px; }
+  #page-cotizacion textarea{ min-height: 60px; margin-top: 6px; }
+  #page-cotizacion .actions{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  #page-cotizacion .actions .btn{ width:100%; }
+  #page-cotizacion .back-row{ margin-top: 4px; }
+  #page-cotizacion .send-to{ margin-top: 6px; font-size: 12px; }
+  #page-cotizacion .btn{ font-size: 13px; padding: 8px 10px; }
+}
+
+/* 344x882 (Z Fold 5 narrow): alinear logo/badge y compactar contacto/cotización */
+@media (max-width: 360px) and (min-height: 820px){
+  .brand{
+    align-items:center;
+  }
+  .brand-home{
+    align-items:center;
+    gap:4px;
+    max-width:70vw;
+  }
+  .logo-wrap{
+    width:26px !important;
+    height:26px !important;
+    flex-basis:26px !important;
+  }
+  .brand-badge{
+    height:22px !important;
+    max-width:90px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+  }
+  .brand-badge.badge-anim{
+    height:22px !important;
+    line-height:0;
+  }
+  .brand-badge.badge-anim .badge-frame{
+    height:22px !important;
+  }
+  .brand-badge.badge-anim .badge-frame.f0{
+    height:22px !important;
+  }
+
+  #page-cotizacion .cotizacion-inner{ width:min(520px, 94vw); }
+  #page-cotizacion .contactView{ gap:6px; }
+  #page-cotizacion .contactGrid{ gap:8px; }
+  #page-cotizacion .contactCard{ padding:10px; }
+  #page-cotizacion .contactItem{ padding:6px; }
+  #page-cotizacion .contactItem > div,
+  #page-cotizacion .contactItem span{
+    font-size:11px;
+  }
+  #page-cotizacion .contactActions{ gap:6px; }
+  #page-cotizacion .contactActions .btn{ padding:8px 10px; font-size:12px; }
+  #page-cotizacion .contactCard--map{ min-height: clamp(300px, 40vh, 380px); }
+  #page-cotizacion .miniMap{ min-height: clamp(260px, 36vh, 340px); }
+
+  #page-cotizacion h2{ font-size: clamp(18px, 5vw, 22px); }
+  #page-cotizacion .sub{ font-size: 12px; }
+
+  #page-cotizacion .form-row{ gap:8px; margin-top:8px; }
+  #page-cotizacion textarea{ min-height: 80px; margin-top:6px; }
+  #page-cotizacion .actions{ gap:6px; margin-top:6px; }
+  #page-cotizacion .send-to{ font-size:12px; }
 }
 
 
